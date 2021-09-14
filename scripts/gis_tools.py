@@ -394,3 +394,20 @@ def profile_from_geo(ortho_file_name, roads_file_name):
 
     return roads_profiles
 
+
+# %%
+ortho_file_name = args.dem
+roads_file_name = args.roads_centroids
+h_std, roadmap = profile_from_geo(ortho_file_name, roads_file_name)
+
+#map_of_quality_roads
+roadmap.to_file(args.quality_map)
+
+#parquet file
+h_std.to_parquet(args.quality_file, compression='gzip', index=False)
+
+
+# %%
+roadmap.plot(column = 'height_std', cmap='YlOrRd');
+
+
